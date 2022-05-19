@@ -5,6 +5,7 @@
 #include <AsyncJson.h>
 #include <ArduinoJson.h>
 #include "worker.h"
+#include "blesrv.h"
 
 AsyncWebServer server(80);
 
@@ -85,6 +86,17 @@ void notificationGetDataHandler(AsyncWebServerRequest *request)
     printFreeMem();
 }
 
+void bleGetDataHandler(AsyncWebServerRequest *request)
+{
+    String json;
+    DynamicJsonDocument doc(1024);
+    doc["ble"]["value"] = bleValue;
+    serializeJson(doc, json);
+    doc.clear();
+    request->send(SC_OK, JSONFMT, json);
+    printFreeMem();
+}
+
 void queueSendHandler(AsyncWebServerRequest *request)
 {
     int amount = (request->pathArg(0)).toInt();
@@ -154,6 +166,9 @@ void restServerRouting()
 
     server.on("/notification/get", HTTP_GET, [](AsyncWebServerRequest *request)
               { notificationGetDataHandler(request); });
+
+        server.on("/ble/get", HTTP_GET, [](AsyncWebServerRequest *request)
+              { bleGetDataHandler(request); });          
 
     server.on("^\\/queue\\/([0-9]+)\\/message\\/([a-zA-Z0-9]+)$", HTTP_GET, [](AsyncWebServerRequest *request)
               { queueSendHandler(request); });
