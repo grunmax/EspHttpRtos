@@ -8,6 +8,7 @@ RTOS examples are:
 * xEventGroupWaitBits - use group events
 * xSemaphoreTake/xSemaphoreGive use semaphore
 
-There is an example of data management via BLE server
+Data management via BLE server:
+* Set inner variable via BLE
 
 
