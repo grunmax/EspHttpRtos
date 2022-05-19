@@ -33,7 +33,6 @@ extern int gevt2;
 extern int gevt3;
 
 void setupWorker();
-void setupOnBoardLed();
 void waitNotificationTask(void *pvParameter);
 void waitGroupEventsTask(void *pvParameter);
 void startQueueTask(void *pvParameter);

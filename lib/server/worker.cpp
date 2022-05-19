@@ -134,11 +134,6 @@ void deleteTask(TaskHandle_t task)
     }
 }
 
-void setupOnBoardLed()
-{
-    pinMode(LED_BUILTIN, OUTPUT);
-}
-
 void setupWorker()
 {
     queueHandler = xQueueCreate(1, sizeof(QueueMessage));
