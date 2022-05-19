@@ -1,11 +1,11 @@
 # EspHttpRtos
-Example of Async HTTP server based on FreeRTOS for ESP32.
-Main features are:
-* JSON in response output
-* REGEX in request path parameters
-* Notification example (FreeRTOS)
-* Queue example  (FreeRTOS)
-* Group events example (FreeRTOS)
-* Semaphore example (FreeRTOS)
+# Platform ESP32, Arduino
+Example of Async HTTP server wih JSON/REGEX features and using FreeRTOS tasks.
+
+RTOS examples are:
+* xTaskNotifyWait - wait for notification with parameter passing
+* xQueueReceive - use queue 
+* xEventGroupWaitBits - use group events
+* xSemaphoreTake/xSemaphoreGive use semaphore
 
 
