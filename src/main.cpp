@@ -21,9 +21,12 @@ const IPAddress subnet(255, 255, 255, 0);
 void setup()
 {
     Serial.begin(115200);
-    setupOnBoardLed();
+    pinMode(LED_BUILTIN, OUTPUT);
+    if (!setupWiFi(&ip, &gateway, &subnet, ssid, password))
+    {
+        ESP.restart();
+    }
     bleServerSetup();
-    setupWiFi(&ip, &gateway, &subnet, ssid, password);
     setupWorker();
     setupServer();
 }
