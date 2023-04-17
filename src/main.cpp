@@ -13,7 +13,7 @@
 #include <Arduino.h>
 
 const char *ssid = "tplink-34";
-const char *password = "***";
+const char *password = "ay108109";
 const IPAddress ip(192, 168, 1, 199);
 const IPAddress gateway(192, 168, 1, 1);
 const IPAddress subnet(255, 255, 255, 0);
