@@ -5,7 +5,7 @@
 #include <AsyncJson.h>
 #include <ArduinoJson.h>
 #include "worker.h"
-#include "blesrv.h"
+#include "settings.h"
 
 AsyncWebServer server(80);
 
@@ -90,7 +90,7 @@ void bleGetDataHandler(AsyncWebServerRequest *request)
 {
     String json;
     DynamicJsonDocument doc(1024);
-    doc["ble"]["value"] = bleValue;
+    doc["ble"]["value"] = preferences.getString("ssid", "mynetwork");;
     serializeJson(doc, json);
     doc.clear();
     request->send(SC_OK, JSONFMT, json);
