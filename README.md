@@ -9,6 +9,6 @@ RTOS examples are:
 * xSemaphoreTake/xSemaphoreGive use semaphore
 
 Data management via BLE server:
-* Set inner variable via BLE
+* Set WiFi credentials via BLE
 
 
