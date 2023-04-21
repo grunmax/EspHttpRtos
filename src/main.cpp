@@ -33,12 +33,6 @@ void setup()
         ESP.restart();
     }
 
-    if (!setupWiFiNow())
-    {
-        delay(60000);
-        ESP.restart();
-    }
-
     setupWorker();
     setupServer();
 }

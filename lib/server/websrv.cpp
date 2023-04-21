@@ -6,6 +6,7 @@
 #include <ArduinoJson.h>
 #include "worker.h"
 #include "settings.h"
+#include "wifinow.h"
 
 AsyncWebServer server(80);
 
@@ -141,6 +142,32 @@ void mutexShareHandler(AsyncWebServerRequest *request)
     request->send(SC_OK, JSONFMT, getStatusResponse("share updated"));
 }
 
+void setupNowHandler(AsyncWebServerRequest *request)
+{
+    bool result = setupWiFiNow();
+    String json;
+    DynamicJsonDocument doc(1024);
+    doc["now"]["setup"] = result;
+    serializeJson(doc, json);
+    doc.clear();
+    request->send(SC_OK, JSONFMT, json);
+    printFreeMem();
+}
+
+void nowHandler(AsyncWebServerRequest *request)
+{
+    String value = (request->pathArg(0));
+    bool result = sendWiFiNow(value);
+    String json;
+    DynamicJsonDocument doc(1024);
+    doc["now"]["message"] = value;
+    doc["now"]["status"] = result;
+    serializeJson(doc, json);
+    doc.clear();
+    request->send(SC_OK, JSONFMT, json);
+    printFreeMem();
+}
+
 void killHandler(AsyncWebServerRequest *request)
 {
     char t = (request->pathArg(0))[0];
@@ -160,6 +187,13 @@ void restServerRouting()
 
     server.on("/info", HTTP_GET, [](AsyncWebServerRequest *request)
               { infoHandler(request); });
+
+    server.on("/setupnow", HTTP_GET, [](AsyncWebServerRequest *request)
+              { setupNowHandler(request); });
+        
+    server.on("^\\/now\\/([a-zA-Z0-9]+)$", HTTP_GET, [](AsyncWebServerRequest *request)
+              { nowHandler(request); });          
+            
     // once?
     server.on("^\\/notification\\/([0-9]+)\\/body\\/([a-zA-Z0-9]+)$", HTTP_GET, [](AsyncWebServerRequest *request)
               { notificationSendHandler(request); });

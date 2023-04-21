@@ -37,12 +37,12 @@ bool setupWiFiNow()
     return true;
 }
 
-bool sendWiFiNow(uint8_t *slave, String message)
+bool sendWiFiNow(String message)
 {
     nowMessageType nowMessage;
     nowMessage.message = message;
 
-    esp_err_t result = esp_now_send(slave, (uint8_t *) &nowMessage, sizeof(nowMessage));
+    esp_err_t result = esp_now_send(slaveAddress, (uint8_t *) &nowMessage, sizeof(nowMessage));
     if (result != ESP_OK) {
         Serial.println("ESPNOW sent error");
         return false;
