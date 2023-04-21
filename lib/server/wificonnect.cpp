@@ -1,4 +1,6 @@
 #include <WiFi.h>
+#include <esp_now.h>
+#include <esp_wifi.h>
 
 bool setupWiFi(IPAddress const *ip, IPAddress const *gateway, IPAddress const *subnet, char const *ssid, char const *password)
 {
@@ -10,12 +12,13 @@ bool setupWiFi(IPAddress const *ip, IPAddress const *gateway, IPAddress const *s
 
     if (WiFi.waitForConnectResult() != WL_CONNECTED)
     {
-        Serial.println("WiFi Failed");
-    
+        Serial.print("WiFi Failed: ");
+        Serial.println(ssid);
         return false;
     }
     
     Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
+
     return true;
 }

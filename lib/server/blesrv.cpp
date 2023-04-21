@@ -74,7 +74,7 @@ void bleServerSetup()
                                          BLECharacteristic::PROPERTY_READ |
                                          BLECharacteristic::PROPERTY_WRITE |
                                          BLECharacteristic::PROPERTY_NOTIFY);                                      
-  characteristic1->setCallbacks(new CharacteristicCallBack());                                            
+  characteristic1->setCallbacks(new CharacteristicCallBack());                                          
 
   descriptor1 = new BLEDescriptor((uint16_t)0x2901);
   descriptor1->setAccessPermissions(BLECharacteristic::PROPERTY_WRITE | BLECharacteristic::PROPERTY_READ);

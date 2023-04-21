@@ -2,6 +2,7 @@
 #include <freertos/task.h>
 #include <SoftwareSerial.h>
 #include "wificonnect.h"
+#include "wifinow.h"
 #include "websrv.h"
 #include "worker.h"
 #include "blesrv.h"
@@ -27,6 +28,12 @@ void setup()
     bleServerSetup();
 
     if (!setupWiFi(&ip, &gateway, &subnet, ssid.c_str(), password.c_str()))
+    {
+        delay(60000);
+        ESP.restart();
+    }
+
+    if (!setupWiFiNow())
     {
         delay(60000);
         ESP.restart();
