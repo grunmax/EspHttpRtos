@@ -6,7 +6,7 @@ bool setupWiFi(IPAddress const *ip, IPAddress const *gateway, IPAddress const *s
 {
     Serial.print("WiFi connection: ");
     Serial.println(ssid);
-    WiFi.mode(WIFI_STA);
+    WiFi.mode(WIFI_AP_STA);
     WiFi.begin(ssid, password);
     WiFi.config(*ip, *gateway, *subnet);
 
@@ -19,6 +19,8 @@ bool setupWiFi(IPAddress const *ip, IPAddress const *gateway, IPAddress const *s
     
     Serial.print("IP Address: ");
     Serial.println(WiFi.localIP());
+    Serial.print("WiFi Channel: ");
+    Serial.println(WiFi.channel());
 
     return true;
 }

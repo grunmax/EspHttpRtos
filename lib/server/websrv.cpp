@@ -142,12 +142,12 @@ void mutexShareHandler(AsyncWebServerRequest *request)
     request->send(SC_OK, JSONFMT, getStatusResponse("share updated"));
 }
 
-void setupNowHandler(AsyncWebServerRequest *request)
+void setupPeerHandler(AsyncWebServerRequest *request)
 {
-    bool result = setupWiFiNow();
+    bool result = setupPeer();
     String json;
     DynamicJsonDocument doc(1024);
-    doc["now"]["setup"] = result;
+    doc["peer"]["setup"] = result;
     serializeJson(doc, json);
     doc.clear();
     request->send(SC_OK, JSONFMT, json);
@@ -161,7 +161,8 @@ void nowHandler(AsyncWebServerRequest *request)
     String json;
     DynamicJsonDocument doc(1024);
     doc["now"]["message"] = value;
-    doc["now"]["status"] = result;
+    doc["now"]["result"] = result;
+    doc["now"]["status"] = lastNowStatus;
     serializeJson(doc, json);
     doc.clear();
     request->send(SC_OK, JSONFMT, json);
@@ -188,8 +189,8 @@ void restServerRouting()
     server.on("/info", HTTP_GET, [](AsyncWebServerRequest *request)
               { infoHandler(request); });
 
-    server.on("/setupnow", HTTP_GET, [](AsyncWebServerRequest *request)
-              { setupNowHandler(request); });
+    server.on("/setuppeer", HTTP_GET, [](AsyncWebServerRequest *request)
+              { setupPeerHandler(request); });
         
     server.on("^\\/now\\/([a-zA-Z0-9]+)$", HTTP_GET, [](AsyncWebServerRequest *request)
               { nowHandler(request); });          

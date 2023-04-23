@@ -32,6 +32,7 @@ void setup()
         delay(60000);
         ESP.restart();
     }
+    setupWiFiNow();
 
     setupWorker();
     setupServer();
